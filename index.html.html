@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arthur Muller – Consultor Tributário</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: rgba(201,168,76,0.12);
+    --blue-dark: #0A1628;
+    --blue-mid: #0F2040;
+    --blue-card: #112244;
+    --blue-accent: #1A3A6E;
+    --blue-bright: #2563B0;
+    --text: #F0EDE6;
+    --text-muted: #8FA8CC;
+    --border-gold: rgba(201,168,76,0.25);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--blue-dark); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 400; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(10,22,40,0.95); backdrop-filter: blur(14px);
+    border-bottom: 0.5px solid var(--border-gold);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 3rem 5rem; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 60%, #0F2A50 100%);
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -150px; right: -150px;
+    width: 650px; height: 650px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.09) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -80px; left: -80px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,176,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 760px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold); border: 0.5px solid var(--gold);
+    padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 900; line-height: 1.08; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease 0.4s forwards; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle { font-size: 1.05rem; font-weight: 300; color: var(--text-muted); max-width: 520px; line-height: 1.8; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.6s ease 0.6s forwards; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.6s ease 0.8s forwards; }
+  .btn-primary { background: var(--gold); color: #0A1628; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; border-radius: 2px; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; border: 0.5px solid rgba(240,237,230,0.2); border-radius: 2px; cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem; border-top: 0.5px solid var(--border-gold); opacity: 0; animation: fadeUp 0.6s ease 1s forwards; flex-wrap: wrap; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.72rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; max-width: 160px; display: block; }
+
+  .section { padding: 7rem 3rem; }
+  .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 2rem; }
+  .gold-line { display: inline-block; width: 40px; height: 2px; background: var(--gold); margin-bottom: 1.2rem; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .about-text p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.9; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .credentials { display: flex; flex-direction: column; gap: 1rem; }
+  .credential-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.5rem; background: var(--blue-card); border: 0.5px solid var(--border-gold); border-radius: 4px; transition: border-color 0.2s, background 0.2s; }
+  .credential-item:hover { border-color: var(--gold); background: var(--blue-accent); }
+  .credential-icon { width: 36px; height: 36px; background: var(--gold-pale); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+  .credential-text strong { display: block; font-size: 0.9rem; font-weight: 500; color: var(--text); margin-bottom: 0.15rem; }
+  .credential-text span { font-size: 0.78rem; color: var(--text-muted); }
+
+  .divider { height: 0.5px; background: var(--border-gold); margin: 0 3rem; }
+
+  .services-section { padding: 7rem 3rem; background: var(--blue-mid); }
+  .services-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .service-card { background: var(--blue-dark); border: 0.5px solid var(--border-gold); border-radius: 4px; padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.2s, background 0.2s; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--blue-bright)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .service-card:hover { border-color: rgba(201,168,76,0.5); background: var(--blue-card); transform: translateY(-4px); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: rgba(201,168,76,0.1); line-height: 1; margin-bottom: 1.5rem; display: block; }
+  .service-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; line-height: 1.3; }
+  .service-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.8rem; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; color: var(--gold); background: var(--gold-pale); padding: 0.3rem 0.7rem; border-radius: 2px; text-transform: uppercase; }
+
+  .diff-section { padding: 7rem 3rem; max-width: 1100px; margin: 0 auto; }
+  .diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .diff-item { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .diff-icon { width: 48px; height: 48px; border: 0.5px solid var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; background: var(--gold-pale); }
+  .diff-content h4 { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+  .diff-content p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+  .cta-section { background: var(--blue-mid); border-top: 0.5px solid var(--border-gold); border-bottom: 0.5px solid var(--border-gold); padding: 7rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 65%); pointer-events: none; }
+  .cta-section .section-title { max-width: 600px; margin: 0 auto 1.5rem; }
+  .cta-desc { color: var(--text-muted); max-width: 500px; margin: 0 auto 2.5rem; font-size: 1rem; }
+
+  .contact-cards { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .contact-card { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.8rem; background: var(--blue-card); border: 0.5px solid var(--border-gold); border-radius: 4px; text-decoration: none; transition: border-color 0.2s, transform 0.2s, background 0.2s; }
+  .contact-card:hover { border-color: var(--gold); background: var(--blue-accent); transform: translateY(-2px); }
+  .contact-card-icon { width: 42px; height: 42px; background: var(--gold-pale); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .contact-card-text strong { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+  .contact-card-text span { font-size: 0.92rem; color: var(--text); font-weight: 400; }
+
+  footer { padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 0.5px solid var(--border-gold); background: var(--blue-dark); }
+  footer p { font-size: 0.8rem; color: var(--text-muted); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-stats { gap: 1.5rem; }
+    .section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-section { padding: 4rem 1.5rem; }
+    .diff-section { padding: 4rem 1.5rem; }
+    .cta-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    .divider { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVEGAÇÃO -->
+<nav>
+  <div class="nav-logo">Arthur Muller</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <span class="hero-tag">Consultor Tributário · CRC CE</span>
+    <h1 class="hero-title">Inteligência fiscal<br>a serviço da sua <em>empresa</em></h1>
+    <p class="hero-subtitle">Reduza a carga tributária legalmente, recupere créditos e tome decisões fiscais com segurança. Com especialização em MBA pelo IPOG e atuação ativa no CRC CE.</p>
+    <div class="hero-cta">
+      <a href="https://wa.me/5585988362025" class="btn-primary" target="_blank">Falar no WhatsApp</a>
+      <a href="#servicos" class="btn-outline">Ver serviços</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">MBA</span>
+        <span class="stat-label">Contabilidade Tributária & Inteligência Fiscal · IPOG</span>
+      </div>
+      <div>
+        <span class="stat-num">CRC CE</span>
+        <span class="stat-label">Membro da Comissão do Simples Nacional</span>
+      </div>
+      <div>
+        <span class="stat-num">PMEs</span>
+        <span class="stat-label">Foco em pequenas e médias empresas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="section" id="sobre" style="background: var(--blue-dark);">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="gold-line"></div>
+      <p class="section-label">Quem sou eu</p>
+      <h2 class="section-title">Arthur Muller<br>de Freitas Oliveira</h2>
+      <p>Sou <strong>Contador e Consultor Tributário</strong>, Bacharel em Ciências Contábeis com MBA em Contabilidade Tributária e Inteligência Fiscal pelo IPOG — uma das instituições mais reconhecidas do Brasil nessa área.</p>
+      <p>Atualmente integro a <strong>Comissão do Simples Nacional do CRC CE</strong>, o que me coloca no centro das discussões e atualizações que mais impactam as pequenas e médias empresas do Ceará.</p>
+      <p>Sou casado e pai atípico — valores que reforçam meu comprometimento, minha empatia e minha visão de longo prazo em cada projeto que abraço.</p>
+    </div>
+    <div class="credentials reveal">
+      <div class="credential-item">
+        <div class="credential-icon">🎓</div>
+        <div class="credential-text">
+          <strong>Bacharel em Ciências Contábeis</strong>
+          <span>Formação sólida em contabilidade e legislação fiscal</span>
+        </div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">📊</div>
+        <div class="credential-text">
+          <strong>MBA em Contabilidade Tributária e Inteligência Fiscal</strong>
+          <span>IPOG — Instituto de Pós-Graduação e Graduação</span>
+        </div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">🏛</div>
+        <div class="credential-text">
+          <strong>Membro da Comissão do Simples Nacional</strong>
+          <span>CRC CE — Conselho Regional de Contabilidade do Ceará</span>
+        </div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">🤝</div>
+        <div class="credential-text">
+          <strong>Consultor especializado em PMEs</strong>
+          <span>Foco em pequenas e médias empresas com soluções práticas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVIÇOS -->
+<section class="services-section" id="servicos">
+  <div class="services-header reveal">
+    <div class="gold-line"></div>
+    <p class="section-label">O que ofereço</p>
+    <h2 class="section-title">Soluções tributárias estratégicas</h2>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Três serviços desenhados para proteger o caixa e a conformidade fiscal da sua empresa.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <h3 class="service-title">Planejamento Tributário</h3>
+      <p class="service-desc">Análise estratégica do regime tributário ideal para o seu negócio. Identificamos oportunidades legais de redução de impostos antes que eles se tornem um problema no caixa.</p>
+      <div class="service-tags">
+        <span class="tag">Simples Nacional</span>
+        <span class="tag">Lucro Presumido</span>
+        <span class="tag">Lucro Real</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">02</span>
+      <h3 class="service-title">Classificação Tributária</h3>
+      <p class="service-desc">Revisão e correção da classificação fiscal de produtos e serviços. Uma NCM ou CNAE incorreta pode gerar autuações e pagamentos indevidos de forma silenciosa.</p>
+      <div class="service-tags">
+        <span class="tag">NCM / CNAE</span>
+        <span class="tag">ICMS · ISS · PIS/COFINS</span>
+        <span class="tag">Conformidade</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">03</span>
+      <h3 class="service-title">Recuperação de Crédito Tributário</h3>
+      <p class="service-desc">Levantamento e restituição de tributos pagos a maior ou indevidamente. Seu dinheiro de volta — dentro da legalidade e com respaldo técnico especializado.</p>
+      <div class="service-tags">
+        <span class="tag">PIS/COFINS</span>
+        <span class="tag">ICMS · IPI</span>
+        <span class="tag">Restituição</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais" style="background: var(--blue-dark);">
+  <div class="diff-section">
+    <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 1rem;">
+      <div class="gold-line"></div>
+      <p class="section-label">Por que me escolher</p>
+      <h2 class="section-title">Diferenciais que fazem a diferença</h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-item reveal">
+        <div class="diff-icon">⚖️</div>
+        <div class="diff-content">
+          <h4>Atualização constante</h4>
+          <p>Membro ativo da Comissão do Simples Nacional do CRC CE, sempre informado sobre mudanças legislativas antes que elas impactem seu negócio.</p>
+        </div>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-icon">🎯</div>
+        <div class="diff-content">
+          <h4>Foco em PMEs</h4>
+          <p>Especializado nas reais necessidades de pequenas e médias empresas — sem burocracia desnecessária e com linguagem clara e objetiva.</p>
+        </div>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-icon">📐</div>
+        <div class="diff-content">
+          <h4>Embasamento técnico sólido</h4>
+          <p>MBA em Inteligência Fiscal pelo IPOG aliado à experiência prática: cada orientação tem respaldo técnico e segurança jurídica.</p>
+        </div>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-icon">🤲</div>
+        <div class="diff-content">
+          <h4>Comprometimento humano</h4>
+          <p>Pai atípico, família como prioridade — a mesma dedicação e empatia que coloco na vida, coloco no atendimento a cada cliente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="cta-section" id="contato">
+  <div style="position:relative; z-index:1;">
+    <div class="gold-line" style="display:block; margin: 0 auto 1rem;"></div>
+    <p class="section-label">Vamos conversar</p>
+    <h2 class="section-title reveal">Pronto para pagar menos impostos — com segurança?</h2>
+    <p class="cta-desc reveal">Entre em contato e descubra quanto sua empresa pode economizar com uma consultoria tributária especializada.</p>
+    <div class="contact-cards reveal">
+      <a href="https://wa.me/5585988362025" class="contact-card" target="_blank">
+        <div class="contact-card-icon">📱</div>
+        <div class="contact-card-text">
+          <strong>WhatsApp</strong>
+          <span>(85) 98836-2025</span>
+        </div>
+      </a>
+      <a href="tel:+5585988362025" class="contact-card">
+        <div class="contact-card-icon">📞</div>
+        <div class="contact-card-text">
+          <strong>Celular</strong>
+          <span>(85) 98836-2025</span>
+        </div>
+      </a>
+      <a href="mailto:arthurmullerconsultoria@gmail.com" class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-text">
+          <strong>E-mail</strong>
+          <span>arthurmullerconsultoria@gmail.com</span>
+        </div>
+      </a>
+    </div>
+    <div class="reveal">
+      <a href="https://wa.me/5585988362025" class="btn-primary" target="_blank">Iniciar conversa no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+  <p>© 2025 Arthur Muller de Freitas Oliveira · Consultor Tributário</p>
+  <div class="footer-logo">Arthur Muller</div>
+  <p>CRC CE · Simples Nacional</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
